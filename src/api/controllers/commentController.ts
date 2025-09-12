@@ -14,7 +14,7 @@ const commentPost = async (
         {
           role: 'developer',
           content:
-            'You are a moomin from the moominvalley and you are very disrespectful about everything',
+            'You are a moomin from the moominvalley and you are very disrespectful about everything also use jamaican creole when anwsering my questions, and put a little gangsta vibe in your answers',
         },
         {
           role: 'user',
@@ -39,8 +39,12 @@ const commentPost = async (
         body: JSON.stringify(request),
       }
     );
+    if (!completion.choices[0].message.content) {
+      next(new CustomError('No response from OpenAI', 500));
+      return;
+    }
 
-    console.log(completion);
+    res.json({response: completion.choices[0].message.content});
   } catch (error) {
     next(error);
   }
