@@ -15,7 +15,6 @@ const errorHandler = (
   res: Response<ErrorResponse>,
   next: NextFunction
 ) => {
-  // console.error('errorHandler', chalk.red(err.stack));
   res.status(err.status || 500);
   res.json({
     message: err.message,
